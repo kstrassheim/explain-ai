@@ -155,3 +155,4 @@ yarn-debug.log*
 yarn-error.log*
 .vscode/
 db/
+datasets/data.csv

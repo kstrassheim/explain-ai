@@ -42,13 +42,13 @@ def data_preprocessing(target_file_path:str, data_filter_func:types.FunctionType
     # Apply external filter if available
     if data_filter_func is not None: data = data_filter_func(data)
 
+    # Pre lemmatize is not required any more
     # Start multi processor preprocessing
-    
-    timestamp_start_lemma = logger.get_timestamp()
-    with mp.Pool(mp.cpu_count()) as pool:
-        for lemmatize_field_name in PREPROCESSING_LEMMATIZE_FIELD_NAMES:
-            data[f'{lemmatize_field_name}{PREPROCESSING_LEMMATIZE_SUFFIX_NAME}'] = pool.map(preprocess_text, data[lemmatize_field_name].astype(str))
-    logger.log_duration("Lemmatize Duration", timestamp_start_lemma)
+    # timestamp_start_lemma = logger.get_timestamp()
+    # with mp.Pool(mp.cpu_count()) as pool:
+    #     for lemmatize_field_name in PREPROCESSING_LEMMATIZE_FIELD_NAMES:
+    #         data[f'{lemmatize_field_name}{PREPROCESSING_LEMMATIZE_SUFFIX_NAME}'] = pool.map(preprocess_text, data[lemmatize_field_name].astype(str))
+    # logger.log_duration("Lemmatize Duration", timestamp_start_lemma)
 
     #save to csv
     if target_file_path is not None : data.to_csv(target_file_path, sep=',')

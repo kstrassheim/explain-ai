@@ -84,6 +84,11 @@ gunicorn -w 1 -k uvicorn.workers.UvicornWorker --bind=0.0.0.0 --timeout 600 --en
 }
 
 ## Retraining the models
+
+Before training generate the dataset by running
+`python data_preprocessing.py`
+this will generate on single data/data.csv file used for all pretrainings
+
 The training is configured in the train_*.py files
 For retraining the models run `python train_[model_name].py`
 
