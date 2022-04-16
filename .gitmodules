@@ -1,0 +1,4 @@
+
+[submodule "pretrained/distilbert-base-uncased"]
+	path = pretrained/distilbert-base-uncased
+	url = https://huggingface.co/distilbert-base-uncased

@@ -1,0 +1,18 @@
+﻿.card.positiveLabel > .card-header {
+  background-color:rgba(255, 0, 0, 0.15)
+}
+.card.negativeLabel > .card-header {
+  background-color:rgba(0, 0, 255, 0.15)
+}
+.card.selected.positiveLabel > .card-header {
+  background-color:rgba(255, 0, 0, 0.33)
+}
+.card.selected.negativeLabel > .card-header {
+  background-color:rgba(0, 0, 255, 0.33)
+}
+
+span.anchorName {
+  text-decoration: underline;
+  font-weight:bold;
+}
+

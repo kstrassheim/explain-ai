@@ -1,0 +1,79 @@
+# Node.js with React
+# Build a Node.js project that uses React.
+# Add steps that analyze code, save build artifacts, deploy, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/javascript
+
+trigger:
+- main
+
+pool:
+  vmImage: ubuntu-20.04
+
+steps:
+- checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+  lfs: true
+- task: NodeTool@0
+  inputs:
+    versionSpec: '14.x'
+  displayName: 'Install Node.js'
+
+- task: UsePythonVersion@0
+  inputs:
+    versionSpec: '3.8'
+  displayName: 'Use Python 3.8'
+
+- script: |
+    python -m pip install --upgrade pip
+    pip install -r requirements.txt
+    npm install
+    npm run build
+    python webapp.py collectstatic
+  displayName: 'Install pip and npm dependencies and build project'
+
+- task: CopyFiles@1
+  inputs:
+    SourceFolder: './'
+    Contents: |
+     **
+     !node_modules/**
+     !src/**
+     !datasets/**
+     !__pycache__/**
+     !train_*.py
+     !explain*.py
+     !data_preprocessing*.py
+     !*_test.py
+     !README.md
+     !.gitignore
+     !package*.json
+     !pipeline-*.yml
+     !static/index.html
+     !public/index.html
+     !build/index.html
+    TargetFolder: '$(build.artifactstagingdirectory)'
+    CleanTargetFolder: true
+    OverWrite: true
+    flattenFolders: false
+    
+- task: ArchiveFiles@2
+  inputs:
+    rootFolderOrFile: '$(build.artifactstagingdirectory)'
+    includeRootFolder: false
+    archiveType: 'zip'
+    archiveFile: '$(Build.ArtifactStagingDirectory)/publish.zip'
+    replaceExistingArchive: true
+  displayName: 'Zip Files'
+
+- task: DeleteFiles@1
+  inputs:
+    SourceFolder: '$(build.artifactstagingdirectory)'
+    Contents: |
+     **
+     !*.zip
+  displayName: 'Delete Non Zip Files'
+    
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathtoPublish: $(build.artifactstagingdirectory) # dist or build files
+    ArtifactName: 'package'
+    publishLocation: 'Container'

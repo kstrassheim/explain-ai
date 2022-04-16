@@ -1,0 +1,26 @@
+{% load react_bundle_loader %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+    <base href="/" />
+    <link rel="icon" href="{% static 'favicon.ico' %}" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta name="description" content="Application to show Explain AI" />
+    <link rel="apple-touch-icon" href="{% static 'logo-white-192x192.png'%}" />
+    <link rel="manifest" href="{% static 'manifest.json' %}" />
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{{TITLE}}</title>
+  {% render_bundle_css  %}
+</head>
+<body>
+  <div id="root"></div>
+  <input type='hidden' id="authClientId" value='{{AUTH_CLIENT_ID}}' />
+  <input type='hidden' id="websiteTitle" value='{{TITLE}}' />
+  {% render_bundle_js %}
+  {% csrf_token %}
+</body>
+</html>

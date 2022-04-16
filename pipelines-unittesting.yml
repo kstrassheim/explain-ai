@@ -1,0 +1,32 @@
+# Python package
+# Create and test a Python package on multiple Python versions.
+# Add steps that analyze code, save the dist with the build record, publish to a PyPI-compatible index, and more:
+# https://docs.microsoft.com/azure/devops/pipelines/languages/python
+
+trigger:
+- none
+jobs:
+- job: unittesting
+  timeoutInMinutes: 360
+
+  pool:
+    vmImage: ubuntu-20.04
+
+  steps:
+  - checkout: self  # self represents the repo where the initial Pipelines YAML file was found
+    lfs: true
+  - task: UsePythonVersion@0
+    inputs:
+      versionSpec: '3.8'
+    displayName: 'Use Python 3.8'
+
+  - script: |
+      python -m pip install --upgrade pip
+      pip install -r requirements.txt
+    displayName: 'Install dependencies'
+  - script: |
+      python -m unittest *_test.py
+    displayName: 'unittest'
+  - script: |
+      python -m unittest *_test-pretrained.py
+    displayName: 'unittest bert'

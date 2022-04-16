@@ -1,0 +1,44 @@
+﻿/* a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+  cursor:grab;
+  color:#ff4500 !important;
+}
+
+a.navbar-brand:hover { color:#ffaa8c !important; }
+
+a.nav-link { color:#ff4500 !important; }
+a.nav-link:hover { color:#ffaa8c !important; } */
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+nav {
+background-color: white;
+
+border-bottom:1px solid #888888;
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .05);
+}
+
+.navbar-brand .logo, .navbar-brand .dropdown {
+  
+}
+
+/* .navbar-brand .dropdown button {
+  color:#ff4500 !important;
+} */
+
+.navbar-dark {
+    /* border-bottom:1px solid grey; */
+}
+
